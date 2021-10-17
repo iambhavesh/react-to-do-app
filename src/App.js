@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Card from "./components/card";
+import Header from "./components/header";
+import TodoForm from "./components/todoform";
+import TodoList from "./components/todolist";
+import Wrapper from "./components/wrapper";
 
 function App() {
+  const [todoListItems, settodoListItems] = useState([]);
+  const onsavedataHandler = (savedData) => {
+    if (todoListItems.includes(savedData)) {
+      alert("List Item already exists");
+    } else {
+      settodoListItems([...todoListItems, savedData]);
+    }
+  };
+  const deleteListItem = (i) => {
+    todoListItems.splice(i, 1);
+    settodoListItems([...todoListItems]);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+      <Header />
+      <Card className="form">
+        <TodoForm onSaveData={onsavedataHandler} />
+      </Card>
+      <Card className="list">
+        <TodoList ondelete={deleteListItem} items={todoListItems} />
+      </Card>
+    </Wrapper>
   );
 }
 

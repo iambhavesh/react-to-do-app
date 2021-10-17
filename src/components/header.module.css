@@ -1,0 +1,9 @@
+.todo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo h2{
+    font-size: 2rem;
+}
